@@ -31,6 +31,9 @@ from NodeGraphQt.widgets.node_graph import NodeGraphWidget, SubGraphWidget
 from NodeGraphQt.widgets.viewer import NodeViewer
 from NodeGraphQt.widgets.viewer_nav import NodeNavigationWidget
 
+from PyQt5.QtGui import QPainter
+from PyQt5.QtPrintSupport import QPrinter
+
 
 class NodeGraph(QtCore.QObject):
     """
@@ -1386,6 +1389,19 @@ class NodeGraph(QtCore.QObject):
         self._deserialize(layout_data)
         self.clear_selection()
         self._undo_stack.clear()
+
+    def save_pdf(self, file_path):
+        """
+        Save the current node graph layout to a pdf file.
+        """
+        printer = QPrinter (QPrinter.HighResolution)
+        printer.setPageSize(QPrinter.A4)
+        printer.setOrientation(QPrinter.Landscape)
+        printer.setOutputFormat(QPrinter.PdfFormat)
+        printer.setOutputFileName(file_path)
+        p = QPainter(printer)
+        self._viewer.scene().render(p)
+        p.end()
 
     def save_session(self, file_path):
         """

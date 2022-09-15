@@ -147,10 +147,15 @@ def _save_session_as(graph):
     """
     Prompts a file save dialog to serialize a session.
     """
+    import os
     current = graph.current_session()
     file_path = graph.save_dialog(current)
     if file_path:
-        graph.save_session(file_path)
+        root, extension = os.path.splitext(file_path)
+        if extension=='.pdf':
+            graph.save_pdf(file_path)
+        else:
+            graph.save_session(file_path)
 
 
 def _new_session(graph):

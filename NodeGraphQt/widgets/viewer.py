@@ -981,7 +981,8 @@ class NodeViewer(QtWidgets.QGraphicsView):
         self.clear_key_state()
         ext_label = '*{} '.format(ext) if ext else ''
         ext_type = '.{}'.format(ext) if ext else '.json'
-        ext_map = {'Node Graph ({}*json)'.format(ext_label): ext_type,
+        ext_map = {'Node Graph ({}*json)'.format(ext_label): '.json',
+                   'PDF Document ({}*pdf)'.format(ext_label): '.pdf',
                    'All Files (*)': ''}
         file_dlg = FileDialog.getSaveFileName(
             self, 'Save Session', current_dir, ';;'.join(ext_map.keys()))
