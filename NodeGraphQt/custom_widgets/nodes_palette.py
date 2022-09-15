@@ -47,7 +47,7 @@ class NodesGridDelagate(QtWidgets.QStyledItemDelegate):
         pen.setCapStyle(QtCore.Qt.RoundCap)
         painter.setPen(pen)
         painter.setBrush(QtGui.QBrush(bg_color))
-        painter.drawRoundRect(base_rect,
+        painter.drawRoundedRect(base_rect,
                               int(base_rect.height()/radius),
                               int(base_rect.width()/radius))
 
@@ -67,7 +67,7 @@ class NodesGridDelagate(QtWidgets.QStyledItemDelegate):
             base_rect.width() - (sub_margin * 2),
             base_rect.height() - (sub_margin * 2)
         )
-        painter.drawRoundRect(sub_rect,
+        painter.drawRoundedRect(sub_rect,
                               int(sub_rect.height() / radius),
                               int(sub_rect.width() / radius))
 
@@ -116,7 +116,7 @@ class NodesGridProxyModel(QtCore.QSortFilterProxyModel):
 
     def __init__(self, parent=None):
         super(NodesGridProxyModel, self).__init__(parent)
-        
+
     def mimeData(self, indexes):
         node_ids = ['node:{}'.format(i.data(QtCore.Qt.ToolTipRole))
                     for i in indexes]
