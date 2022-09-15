@@ -397,8 +397,6 @@ class NodeObject(object):
                 setattr(self.view, name, value)
             self.model.set_property(name, value)
 
-        self.update()
-
     def has_property(self, name):
         """
         Check if node custom property exists.
