@@ -17,7 +17,8 @@ from NodeGraphQt.qgraphics.node_base import NodeItem, NodeItemVertical
 from NodeGraphQt.widgets.node_widgets import (NodeBaseWidget,
                                               NodeComboBox,
                                               NodeLineEdit,
-                                              NodeCheckBox)
+                                              NodeCheckBox,
+                                              NodeLabel)
 
 
 class BaseNode(NodeObject):
@@ -225,6 +226,22 @@ class BaseNode(NodeObject):
             name, state, widget_type=NODE_PROP_QCHECKBOX, tab=tab)
         widget = NodeCheckBox(self.view, name, label, text, state)
         widget.value_changed.connect(lambda k, v: self.set_property(k, v))
+        self.view.add_widget(widget)
+
+    def add_label(self, name, text='', tab=None):
+        """
+        Creates a custom property with the :meth:`NodeObject.create_property`
+        function and embeds a :class:`PySide2.QtWidgets.QLabel` widget
+        into the node.
+
+        Args:
+            name (str): name for the custom property.
+            text (str): label text to be displayed.
+            tab (str): name of the widget tab to display in.
+        """
+        self.create_property(
+            name, text, widget_type=NODE_PROP_QLABEL, tab=tab)
+        widget = NodeLabel(self.view, name, text)
         self.view.add_widget(widget)
 
     def add_input(self, name='input', multi_input=False, display_name=True,

@@ -80,8 +80,8 @@ class NodeBaseWidget(QtWidgets.QGraphicsProxyWidget):
     value_changed = QtCore.Signal(str, object)
     """
     Signal triggered when the ``value`` attribute has changed.
-    
-    (This is connected to the :meth: `BaseNode.set_property` function when the 
+
+    (This is connected to the :meth: `BaseNode.set_property` function when the
     widget is added into the node.)
 
     :parameters: str, object
@@ -424,3 +424,49 @@ class NodeCheckBox(NodeBaseWidget):
         """
         if state != self.get_value():
             self.get_custom_widget().setChecked(state)
+
+class NodeLabel(NodeBaseWidget):
+    """
+    Displays as a ``QLabel`` in a node.
+
+    **Inherited from:** :class:`NodeBaseWidget`
+
+    .. note::
+        `To embed a` ``QLabel`` `in a node see func:`
+        :meth:`NodeGraphQt.BaseNode.add_label`
+    """
+
+    def __init__(self, parent=None, name='', text=''):
+        super(NodeLabel, self).__init__(parent, name, text)
+        _lbox = QtWidgets.QLabel(text)
+        _lbox.setFrameStyle(QtWidgets.QFrame.Box)
+        _lbox.setMinimumWidth(120)
+        _lbox.setMinimumHeight(80)
+        _lbox.setMargin(5)
+        _lbox.setIndent(0)
+        _lbox.setAlignment(QtCore.Qt.AlignCenter)
+        _lbox.setWordWrap(True)
+        self.set_custom_widget(_lbox)
+        self.widget().setMaximumWidth(140)
+
+    @property
+    def type_(self):
+        return 'LabelNodeWidget'
+
+    def get_value(self):
+        """
+        Returns the label text value.
+
+        Returns:
+            string: label text.
+        """
+        return self.get_custom_widget().text()
+
+    def set_value(self, text=''):
+        """
+        Sets the widget label text.
+
+        Args:
+            text (string): label text.
+        """
+        self.get_custom_widget().setText(text)
