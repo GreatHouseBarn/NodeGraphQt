@@ -34,7 +34,7 @@ if __name__ == '__main__':
     graph = NodeGraph()
     graph.set_background_color(252, 252, 252)
     graph.set_grid_color(248, 248, 248)
-    graph.set_grid_mode(ViewerEnum.GRID_DISPLAY_NONE)
+    graph.set_grid_mode(ViewerEnum.GRID_DISPLAY_NONE.value)
 
     graph.set_acyclic()
 
@@ -46,7 +46,7 @@ if __name__ == '__main__':
         # custom_ports_node.CustomPortsNode,
         # group_node.MyGroupNode,
         # widget_nodes.DropdownMenuNode,
-        # widget_nodes.TextInputNode,
+        widget_nodes.TextInputNode,
         # widget_nodes.CheckboxNode,
         network_nodes.TrunkInNode,
         network_nodes.TrunkOutNode,
@@ -107,17 +107,27 @@ if __name__ == '__main__':
     # port.connect_to(n_basic_b.output(0))
 
 
-    n_trunk_out = graph.create_node('nodes.network.TrunkOutNode',color='#fafafa',text_color='#000000')
-    n_trunk_out.create_property('Label:', 'XYZ-123-116/2022/A', widget_type=NODE_PROP_QLABEL, tab='Data')
-    n_trunk_out.create_property('GPS Loc:', '51.2N 3W', widget_type=NODE_PROP_QLABEL, tab='Data')
+    n_trunk_out = graph.create_node('nodes.network.TrunkOutNode',color='#fafafa',text_color='#000000', selected=False)
+    n_trunk_out.set_property('label', 'XYZ-123-116/2022/A')
+    # n_trunk_out.add_label('Label:', 'XYZ-123-116/2022/A', tab='Data')
+    #n_trunk_out.create_property('Label:', 'XYZ-123-116/2022/A', widget_type=NODE_PROP_QLABEL, tab='Data')
+    #n_trunk_out.create_property('GPS Loc:', '51.2N 3W', widget_type=NODE_PROP_QLABEL, tab='Data')
+
     # n_trunk_out.add_text_input('my_input', 'Text Input', tab='widgets')
 
-    n_trunk_in = graph.create_node('nodes.network.TrunkInNode',color='#fafafa',text_color='#000000')
+    n_trunk_in = graph.create_node('nodes.network.TrunkInNode',color='#fafafa',text_color='#000000', selected=False)
+    n_trunk_in.set_property('label', 'aaaXYZ-123-116 / 2021 / A16652 / JJ')
 
     for i in range(12):
         n_trunk_out.set_output(i, n_trunk_in.input(i))
 
-    n_split_4 = graph.create_node('nodes.network.Splitter1x4Node',color='#fafafa',text_color='#000000')
+    n_split_4 = graph.create_node('nodes.network.Splitter1x4Node',color='#fafafa',text_color='#000000', selected=False)
+
+    # create node with the embedded QLineEdit widget.
+    # n_text_input = graph.create_node(
+    #     'nodes.widget.TextInputNode', name='text node', color='fafafa', text_color='#000000')
+    # for i in range(12):
+    #     n_text_input.add_output('output %d' % i, i)
 
     # auto layout nodes.
     graph.auto_layout_nodes()

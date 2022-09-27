@@ -128,11 +128,13 @@ class TrunkOutNode(BaseNode):
         super(TrunkOutNode, self).__init__()
 
         # create input and output ports.
-        self.add_input('in', color=(200, 10, 0), painter_func=draw_square_port)
+        self.add_output('out', color=(200, 10, 0), painter_func=draw_square_port)
 
         for i in range(12):
             colour = HTMLColorToRGB(__default_colours__[i])
-            self.add_output(str(i+1), False, True, colour, False, draw_square_port)
+            self.add_input(str(i+1), False, True, colour, False, draw_square_port)
+
+        self.add_label('label', '', tab='Data')
 
 class TrunkInNode(BaseNode):
     # set a unique node identifier.
@@ -147,9 +149,11 @@ class TrunkInNode(BaseNode):
         # create input and output ports.
         for i in range(12):
             colour = HTMLColorToRGB(__default_colours__[i])
-            self.add_input(str(i+1), False, True, colour, False, draw_square_port)
+            self.add_output(str(i+1), False, True, colour, False, draw_square_port)
 
-        self.add_output('out', color=(200, 10, 0), painter_func=draw_square_port)
+        self.add_input('in', color=(200, 10, 0), painter_func=draw_square_port)
+
+        self.add_label('label', '', tab='Data')
 
 class Splitter1x4Node(BaseNode):
     # set a unique node identifier.
@@ -166,6 +170,8 @@ class Splitter1x4Node(BaseNode):
 
         for i in range(4):
             self.add_output(str(i+1), False, True, (200, 10, 0), False, draw_square_port)
+
+        self.add_label('label', '', tab='Data')
 
 
 class Splitter1x8Node(BaseNode):
@@ -184,6 +190,7 @@ class Splitter1x8Node(BaseNode):
         for i in range(8):
             self.add_output(str(i+1), False, True, (200, 10, 0), False, draw_square_port)
 
+        self.add_label('label', '', tab='Data')
 
 class Splitter1x16Node(BaseNode):
     # set a unique node identifier.
@@ -201,6 +208,8 @@ class Splitter1x16Node(BaseNode):
         for i in range(16):
             self.add_output(str(i+1), False, True, (200, 10, 0), False, draw_square_port)
 
+        self.add_label('label', '', tab='Data')
+
 class Splitter1x32Node(BaseNode):
     # set a unique node identifier.
     __identifier__ = 'nodes.network'
@@ -216,3 +225,47 @@ class Splitter1x32Node(BaseNode):
 
         for i in range(32):
             self.add_output(str(i+1), False, True, (200, 10, 0), False, draw_square_port)
+
+        self.add_label('label', '', tab='Data')
+
+class DPInNode(BaseNode):
+    # set a unique node identifier.
+    __identifier__ = 'nodes.network'
+
+    # set the initial default node name.
+    NODE_NAME = 'D.P. (in)'
+
+    def __init__(self):
+        super(DPInNode, self).__init__()
+
+        # create input and output ports.
+        self.add_output('out', color=(200, 10, 0), painter_func=draw_square_port)
+        self.add_label('label', '', tab='Data')
+
+class DPOutNode(BaseNode):
+    # set a unique node identifier.
+    __identifier__ = 'nodes.network'
+
+    # set the initial default node name.
+    NODE_NAME = 'D.P. (out)'
+
+    def __init__(self):
+        super(DPOutNode, self).__init__()
+
+        # create input and output ports.
+        self.add_input('in', color=(200, 10, 0), painter_func=draw_square_port)
+        self.add_label('label', '', tab='Data')
+
+class MDUNode(BaseNode):
+    # set a unique node identifier.
+    __identifier__ = 'nodes.network'
+
+    # set the initial default node name.
+    NODE_NAME = 'MDU'
+
+    def __init__(self):
+        super(MDUNode, self).__init__()
+
+        # create input and output ports.
+        self.add_input('in', color=(200, 10, 0), painter_func=draw_square_port, multi_input=True)
+        self.add_label('label', '', tab='Data')
